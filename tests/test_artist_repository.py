@@ -2,8 +2,8 @@ from lib.artist_repository import ArtistRepository
 from lib.artist import Artist
 
 """
-When we call Artistrepository #all
-we get a list of Book objects reflecting the seed data.
+When we call ArtisitRepository #all 
+We get a list of Artists objects reflecting the seed data
 """
 
 def test_get_all_artists(db_connection):
@@ -18,9 +18,7 @@ def test_get_all_artists(db_connection):
         Artist(3, "Taylor Swift", "Pop"),
         Artist(4, "Nina Simone", "Jazz"),
         Artist(5, "Wild nothing", "Indie"),
-    ]
-
-
+        ]
 
 def test_create(db_connection):
     db_connection.seed("seeds/artists.sql")

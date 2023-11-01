@@ -1,10 +1,10 @@
 import os
 from lib.database_connection import get_flask_database_connection
-from flask import Flask, request, jsonify
+from flask import Flask, request, render_template
 from lib.album_repository import AlbumRepository
 from lib.album import Album
-from lib.artist_repository import ArtistRepository
 from lib.artist import Artist
+from lib.artist_repository import ArtistRepository
 
 app = Flask(__name__)
 
@@ -38,15 +38,13 @@ def has_invalid_album_parameters(form):
         or 'artist_id' not in form
 
 
-
 @app.route('/artists')
-def get_artists():
+def get_artist():
     connection = get_flask_database_connection(app)
     repository = ArtistRepository(connection)
     return "\n".join(
         f"{artist}" for artist in repository.all()
     )
-
 
 artists = ["Pixies", "ABBA", "Taylor Swift", "Nina Simone"]
 
@@ -57,11 +55,16 @@ def create_artist():
     data = request.form
     name = data.get('name')
     genre = data.get('genre')
-    
-    # Here you would typically add the new artist to your database
-    # For the sake of this example, we're just appending to the list
+
     artists.append(name)
     return '', 200
+
+
+@app.route('/artists')
+def get_artist():
+    return render_template("Taylor Swift.html")
+
+
 
 
 if __name__ == '__main__':
